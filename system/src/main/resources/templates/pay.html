@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.//thymeleaf.org">
+<head>
+    <title> PAYMENTS </title>
+
+</head>
+<body>
+<h3>Payments</h3>
+<div>
+    <form action="#" th:action="${booking}">
+        <label><input type="text" th:field="*{busName}"></label>
+        <label><input type="text" th:field="*{date}"></label>
+        <label><input type="text" th:field="*{time}"></label>
+        <label><input type="text" th:field="*{nofPersons}"></label>
+        <label><input type="text" th:field="*{totalCalculated}"></label>
+        <button type="submit" class="btn btn-danger">PAY</button>
+    </form>
+</div>
+<a th:href="@{/Booking}" class="btn btn-secondary">Back</a>
+</body>
+</html>
