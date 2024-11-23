@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Online Bus Ticket Booking System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-radius: 9px;
+            padding: 10px;
+            color: white;
+        }
+
+        .navbar h1 {
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn.anchor {
+            margin: 6px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn.anchor:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 12px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        label {
+            color: #ffffff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .alert-info {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 10px;
+        }
+
+        button {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <h1>Bus Ticket Booking Admin Dashboard</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Hi, Welcome <span th:text ="*{userDetails}"></span></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/adminScreen/allRecords}" class="btn anchor" style="margin-right: 100px;">
+                            <i class="fa fa-arrow-circle-o-left"></i>&nbsp;All Records
+                        </a>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/logout}" class="btn anchor">
+                            <i class="fa fa-arrow-circle-o-left"></i>&nbsp;Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<br><br><br><br><br><br><br>
+<div class="container">
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Uploaded Successfully.</div>
+    </div>
+    <form th:action="@{/adminScreen}" method="post" th:object="${busDetails}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 30%;">
+                        <label class="control-label" for="from">From</label>
+                        <input id="from" class="form-control" th:field="*{fromDestination}" required autofocus="autofocus" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 30%;">
+                        <label class="control-label" for="to">To</label>
+                        <input id="to" class="form-control" th:field="*{toDestination}" required autofocus="autofocus" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label" for="filterDate">Date</label>
+                        <input type="date" th:field="*{filterDate}" id="filterDate" required autofocus="autofocus" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 30%;">
+                        <label class="control-label" for="price">Price</label>
+                        <input id="price" class="form-control" th:field="*{price}" required autofocus="autofocus" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 30%;">
+                        <label class="control-label" for="busName">Bus Name</label>
+                        <input id="busName" class="form-control" th:field="*{busName}" required autofocus="autofocus" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" style="width: 30%;">
+                        <label class="control-label" for="time">Departure Time</label>
+                        <input id="time" class="form-control" type="time" th:field="*{time}" required autofocus="autofocus" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="margin-top:25px;">Upload</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Online Bus Ticket Booking System</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    body {
+           background: linear-gradient(to right, #00c6ff, #0072ff);
+           font-family: 'Arial', sans-serif;
+       }
+   .navbar {
+       background: rgba(255, 255, 255, 0.2);
+       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+       backdrop-filter: blur(5px);
+       -webkit-backdrop-filter: blur(5px);
+   }
+   .anchor {
+       margin: 6px;
+       background-color: #d9edf7;
+       border-color: #d9edf7;
+   }
+   input, label {
+       display: block;
+   }
+</style>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <h1>Bus Reservation Dashboard</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h4>Hi, Welcome <span th:text="*{userDetails}"></span></h4>
+                    </div>
+                    <div class="col-md-3">
+                        <a th:href="@{/adminScreen}" class="btn anchor"><i class="fa fa-arrow-circle-o-left"></i> Dashboard</a>
+                    </div>
+                    <div class="col-md-3" style="margin-left: 124px;">
+                        <a th:href="@{/logout}" class="btn anchor"><i class="fa fa-arrow-circle-o-left"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<br><br><br><br><br><br><br>
+<div class="container">
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Record deleted successfully.</div>
+    </div>
+    <div class="row">
+        <form th:action="@{/adminScreen/allRecords}" method="post" th:object="${data}">
+            <div class="container">
+                <div th:if="${data != null}">
+                    <table border="1" class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Time</th>
+                            <th>BusName</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="bus : ${data}">
+                            <td th:text="${bus.fromDestination}"></td>
+                            <td th:text="${bus.toDestination}"></td>
+                            <td th:text="${bus.time}"></td>
+                            <td th:text="${bus.BusName}"></td>
+                            <td th:text="${bus.price}"></td>
+                            <td><a th:href="@{/adminScreen/delete/{id}(id=${bus.id})}" class="btn btn-primary">Delete</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
